@@ -10,14 +10,19 @@
 /*
  
  *********************************************************************************
- *                                                                                *
- * 在您使用此自动布局库的过程中如果出现bug请及时以以下任意一种方式联系我们，我们会及时修复bug并  *
- * 帮您解决问题。                                                                    *
- * 持续更新地址: https://github.com/gsdios/SDAutoLayout                              *
- * Email : gsdios@126.com                                                          *
- * GitHub: https://github.com/gsdios                                               *
- * 新浪微博:GSD_iOS                                                                 *
- *                                                                                *
+ *
+ * GSD_WeiXin
+ *
+ * QQ交流群: 459274049
+ * Email : gsdios@126.com
+ * GitHub: https://github.com/gsdios/GSD_WeiXin
+ * 新浪微博:GSD_iOS
+ *
+ * 此“高仿微信”用到了很高效方便的自动布局库SDAutoLayout（一行代码搞定自动布局）
+ * SDAutoLayout地址：https://github.com/gsdios/SDAutoLayout
+ * SDAutoLayout视频教程：http://www.letv.com/ptv/vplay/24038772.html
+ * SDAutoLayout用法示例：https://github.com/gsdios/SDAutoLayout/blob/master/README.md
+ *
  *********************************************************************************
  
  */

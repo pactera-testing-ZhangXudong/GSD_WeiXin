@@ -6,6 +6,27 @@
 //  Copyright © 2016年 GSD. All rights reserved.
 //
 
+
+/*
+ 
+ *********************************************************************************
+ *
+ * GSD_WeiXin
+ *
+ * QQ交流群: 459274049
+ * Email : gsdios@126.com
+ * GitHub: https://github.com/gsdios/GSD_WeiXin
+ * 新浪微博:GSD_iOS
+ *
+ * 此“高仿微信”用到了很高效方便的自动布局库SDAutoLayout（一行代码搞定自动布局）
+ * SDAutoLayout地址：https://github.com/gsdios/SDAutoLayout
+ * SDAutoLayout视频教程：http://www.letv.com/ptv/vplay/24038772.html
+ * SDAutoLayout用法示例：https://github.com/gsdios/SDAutoLayout/blob/master/README.md
+ *
+ *********************************************************************************
+ 
+ */
+
 #import "SDHomeTableViewController.h"
 
 #import "SDAnalogDataGenerator.h"
@@ -47,33 +68,25 @@ const CGFloat kHomeTableViewAnimationDuration = 0.25;
     
     self.tableView.rowHeight = [SDHomeTableViewCell fixedHeight];
     
-//    self.tableView.tableHeaderView = self.searchController.searchBar;
-    
     [self setupDataWithCount:10];
     
     [self.tableView registerClass:[SDHomeTableViewCell class] forCellReuseIdentifier:kHomeTableViewControllerCellId];
     
     self.tableView.backgroundColor = [UIColor clearColor];
-    
-//    [self.tableView addObserver:self forKeyPath:kHomeObserveKeyPath options:NSKeyValueObservingOptionNew context:nil];
-    
-    
-    
-
 }
 
 - (UISearchController *)searchController
 {
     if (!_searchController) {
         _searchController = [[UISearchController alloc] initWithSearchResultsController:[UIViewController new]];
-        _searchController.view.backgroundColor = [UIColor clearColor];
-//        [_searchController setSearchResultsUpdater: self.searchVC];
-        [_searchController.searchBar setPlaceholder:@"搜索"];
-        [_searchController.searchBar setBarTintColor:[UIColor lightGrayColor]];
-        [_searchController.searchBar sizeToFit];
-        [_searchController.searchBar setDelegate:self];
-        [_searchController.searchBar.layer setBorderWidth:0.5f];
-//        [_searchController.searchBar.layer setBorderColor:WBColor(220, 220, 220, 1.0).CGColor];
+//        _searchController.view.backgroundColor = [UIColor clearColor];
+////        [_searchController setSearchResultsUpdater: self.searchVC];
+//        [_searchController.searchBar setPlaceholder:@"搜索"];
+//        [_searchController.searchBar setBarTintColor:[UIColor lightGrayColor]];
+//        [_searchController.searchBar sizeToFit];
+//        [_searchController.searchBar setDelegate:self];
+//        [_searchController.searchBar.layer setBorderWidth:0.5f];
+////        [_searchController.searchBar.layer setBorderColor:WBColor(220, 220, 220, 1.0).CGColor];
     }
     return _searchController;
 }
@@ -207,36 +220,6 @@ const CGFloat kHomeTableViewAnimationDuration = 0.25;
 }
 
 #pragma mark - scrollview delegate
-
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//    if (self.tableView.contentOffset.y > -64) return;
-//    
-//    CGFloat height = 90.0;
-//    CGFloat progress = -(self.tableView.contentOffset.y + 64) / height;
-//    NSLog(@">>>  %f", progress);
-//    if (progress > 0) {
-//        self.eyeAnimationView.progress = progress;
-//    }
-//    
-//    if (progress >= 1.0 && !scrollView.isDragging && scrollView.contentInset.top != scrollView.frame.size.height) {
-//        UIEdgeInsets insets = scrollView.contentInset;
-//        insets.top = scrollView.frame.size.height;
-//        
-//        CGPoint offset = scrollView.contentOffset;
-//        offset.y = -insets.top;
-//        [UIView animateWithDuration:0.4 animations:^{
-//            scrollView.contentInset = insets;
-//            scrollView.contentOffset = offset;
-//            self.navigationController.tabBarController.view.transform = CGAffineTransformMakeTranslation(0, 200);
-//        }];
-//        
-////        [self presentViewController:[UIViewController new] animated:NO completion:nil];
-//        
-////        self.navigationController.navigationBar.hidden = YES;
-////        self.navigationController.tabBarController.tabBar.hidden = YES;
-//    }
-//}
 
 - (void)startTableViewAnimationWithHidden:(BOOL)hidden
 {

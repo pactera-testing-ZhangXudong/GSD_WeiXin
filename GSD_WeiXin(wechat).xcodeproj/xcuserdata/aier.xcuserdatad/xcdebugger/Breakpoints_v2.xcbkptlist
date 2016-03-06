@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GSD_WeiXin(wechat)/Classes/Home/Host/Controllers/ShortVideoController/SDShortVideoController.m"
-            timestampString = "478953637.970411"
+            timestampString = "478956651.230685"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "611"
-            endingLineNumber = "611"
+            startingLineNumber = "631"
+            endingLineNumber = "631"
             landmarkName = "-changeDeviceProperty:"
             landmarkType = "5">
          </BreakpointContent>

@@ -6,6 +6,26 @@
 //  Copyright © 2016年 GSD. All rights reserved.
 //
 
+/*
+ 
+ *********************************************************************************
+ *
+ * GSD_WeiXin
+ *
+ * QQ交流群: 459274049
+ * Email : gsdios@126.com
+ * GitHub: https://github.com/gsdios/GSD_WeiXin
+ * 新浪微博:GSD_iOS
+ *
+ * 此“高仿微信”用到了很高效方便的自动布局库SDAutoLayout（一行代码搞定自动布局）
+ * SDAutoLayout地址：https://github.com/gsdios/SDAutoLayout
+ * SDAutoLayout视频教程：http://www.letv.com/ptv/vplay/24038772.html
+ * SDAutoLayout用法示例：https://github.com/gsdios/SDAutoLayout/blob/master/README.md
+ *
+ *********************************************************************************
+ 
+ */
+
 #import "SDChatTableViewCell.h"
 
 #import "UIView+SDAutoLayout.h"
@@ -212,216 +232,3 @@
 }
 
 @end
-
-
-
-
-
-/*
- self.iconImageView.image = [UIImage imageNamed:model.imageName];
- 
- if (_label.didFinishAutoLayoutBlock) {
- _label.didFinishAutoLayoutBlock = nil;
- }
- 
- //    NSLog(@">>>>>>> %d", model.messageType);
- 
- BOOL de = YES;
- 
- if (model.messageType == SDMessageTypeSendToOthers) {
- self.iconImageView.sd_resetLayout
- .rightSpaceToView(self.contentView, kChatCellItemMargin)
- .topSpaceToView(self.contentView, kChatCellItemMargin)
- .widthIs(kChatCellIconImageViewWH)
- .heightIs(kChatCellIconImageViewWH);
- 
- de = NO;
- 
- //        self.iconImageView.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - (kChatCellIconImageViewWH + kChatCellItemMargin), kChatCellItemMargin, kChatCellIconImageViewWH, kChatCellIconImageViewWH);
- _containerBackgroundImageView.image = [[UIImage imageNamed:@"SenderTextNodeBkg"] stretchableImageWithLeftCapWidth:50 topCapHeight:30];
- } else if (model.messageType == SDMessageTypeSendToMe) {
- _containerBackgroundImageView.image = [[UIImage imageNamed:@"ReceiverTextNodeBkg"] stretchableImageWithLeftCapWidth:50 topCapHeight:30];
- self.iconImageView.sd_resetLayout
- .leftSpaceToView(self.contentView, kChatCellItemMargin)
- .topSpaceToView(self.contentView, kChatCellItemMargin)
- .widthIs(kChatCellIconImageViewWH)
- .heightIs(kChatCellIconImageViewWH);
- 
- de = NO;
- 
- //        self.iconImageView.frame = CGRectMake(kChatCellItemMargin, kChatCellItemMargin, kChatCellIconImageViewWH, kChatCellIconImageViewWH);
- }
- 
- 
- if (de) {
- NSLog(@"xxxx  xxxx");
- }
- 
- 
- 
- if (model.text) {
- 
- _label.text = model.text;
- 
- CGRect rect = [model.text boundingRectWithSize:CGSizeMake(kMaxLabelWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : _label.font} context:nil];
- 
- //        NSLog(@"(%f) >>>> %@", rect.size.height, model.text);
- 
- if (rect.size.height > 25) {
- 
- [_container invalidateAutoWidthSettings];
- 
- _container.sd_resetLayout
- .widthIs(kMaxContainerWidth)
- .topEqualToView(self.iconImageView);
- 
- _label.sd_resetLayout
- .leftSpaceToView(_container, kLabelMargin)
- .widthIs(kMaxLabelWidth)
- .topSpaceToView(_container, kLabelTopMargin)
- .autoHeightRatio(0);
- 
- 
- _label.tag = 0;
- 
- } else {
- _container.sd_resetLayout
- .topEqualToView(self.iconImageView);
- 
- 
- _label.tag = 1111;
- 
- _label.sd_resetLayout
- .topSpaceToView(_container, kLabelTopMargin)
- .leftSpaceToView(_container, kLabelMargin)
- .heightIs(24);
- 
- 
- [_label setSingleLineAutoResizeWithMaxWidth:kMaxLabelWidth];
- 
- [_container setupAutoWidthWithRightView:_label rightMargin:kLabelMargin];
- }
- 
- if (model.messageType == SDMessageTypeSendToOthers) {
- _container.sd_layout
- .rightSpaceToView(self.iconImageView, kChatCellItemMargin);
- } else {
- _container.sd_layout
- .leftSpaceToView(self.iconImageView, kChatCellItemMargin);
- }
- 
- [_container setupAutoHeightWithBottomView:_label bottomMargin:kLabelBottomMargin];
- }
- 
- */
-
-
-
-
-
-/*
- 
- - (void)setupView
- {
- _iconImageView = [UIImageView new];
- [self.contentView addSubview:_iconImageView];
- 
- _container = [UIView new];
- [self.contentView addSubview:_container];
- _container.backgroundColor = [UIColor redColor];
- 
- _label = [UILabel new];
- _label.backgroundColor = [UIColor lightGrayColor];
- [_container addSubview:_label];
- 
- [self setupAutoHeightWithBottomView:_container bottomMargin:kLabelMargin];
- }
- 
- - (void)setModel:(SDChatModel *)model
- {
- _model = model;
- 
- if (model.messageType == SDMessageTypeSendToOthers) {
- self.iconImageView.sd_resetLayout
- .rightSpaceToView(self.contentView, kChatCellItemMargin)
- .topSpaceToView(self.contentView, kChatCellItemMargin)
- .widthIs(kChatCellIconImageViewWH)
- .heightIs(kChatCellIconImageViewWH);
- } else if (model.messageType == SDMessageTypeSendToMe) {
- self.iconImageView.sd_resetLayout
- .leftSpaceToView(self.contentView, kChatCellItemMargin)
- .topSpaceToView(self.contentView, kChatCellItemMargin)
- .widthIs(kChatCellIconImageViewWH)
- .heightIs(kChatCellIconImageViewWH);
- }
- 
- self.iconImageView.image = [UIImage imageNamed:model.imageName];
- 
- if (model.text) {
- 
- _label.text = model.text;
- 
- CGRect rect = [model.text boundingRectWithSize:CGSizeMake(kMaxContainerWidth - kLabelMargin * 2, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : _label.font} context:nil];
- 
- if (_label.didFinishAutoLayoutBlock) {
- _label.didFinishAutoLayoutBlock = nil;
- }
- 
- if (rect.size.height > 25) {
- 
- _container.sd_resetLayout
- .widthIs(kMaxContainerWidth)
- .topEqualToView(self.iconImageView);
- 
- _label.sd_resetLayout
- .leftSpaceToView(_container, kLabelMargin)
- .rightSpaceToView(_container, kLabelMargin)
- .topSpaceToView(_container, kLabelMargin)
- .autoHeightRatio(0);
- 
- [_label updateLayout];
- 
- } else {
- _container.sd_resetLayout
- .topEqualToView(self.iconImageView);
- 
- _label.sd_resetLayout
- .topSpaceToView(_container, kLabelMargin)
- .heightIs(24);
- 
- 
- [_label setSingleLineAutoResizeWithMaxWidth:kMaxContainerWidth - kLabelMargin * 2];
- 
- [_label updateLayout];
- 
- __weak typeof(_container) weakContainer = _container;
- __weak typeof(_label) weakLabel = _label;
- [_label setDidFinishAutoLayoutBlock:^(CGRect frame) {
- weakLabel.left = kLabelMargin;
- weakContainer.width = frame.size.width + kLabelMargin * 2;
- weakContainer.fixedWith = @(weakContainer.width);
- if (model.messageType == SDMessageTypeSendToOthers) {
- weakContainer.right = self.iconImageView.left - kChatCellItemMargin;
- } else {
- weakContainer.left = self.iconImageView.right +kChatCellItemMargin;
- }
- 
- }];
- }
- 
- if (model.messageType == SDMessageTypeSendToOthers) {
- _container.sd_layout
- .rightSpaceToView(self.iconImageView, kChatCellItemMargin);
- } else {
- _container.sd_layout
- .leftSpaceToView(self.iconImageView, kChatCellItemMargin);
- }
- 
- 
- [_container setupAutoHeightWithBottomView:_label bottomMargin:kChatCellItemMargin];
- }
- 
- }
-
- 
- */
