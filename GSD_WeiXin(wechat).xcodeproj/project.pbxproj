@@ -138,6 +138,7 @@
 		99D693921C6F765800DA97E1 /* SDChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D693911C6F765800DA97E1 /* SDChatTableViewController.m */; };
 		99D693971C6F774B00DA97E1 /* SDChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D693961C6F774B00DA97E1 /* SDChatTableViewCell.m */; };
 		99D6949C1C6F81E700DA97E1 /* SDChatModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D6949B1C6F81E700DA97E1 /* SDChatModel.m */; };
+		99D694F51C8C6B4400DA97E1 /* SDTimeLineRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D694F41C8C6B4400DA97E1 /* SDTimeLineRefreshFooter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -368,6 +369,8 @@
 		99D693961C6F774B00DA97E1 /* SDChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDChatTableViewCell.m; sourceTree = "<group>"; };
 		99D6949A1C6F81E700DA97E1 /* SDChatModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDChatModel.h; sourceTree = "<group>"; };
 		99D6949B1C6F81E700DA97E1 /* SDChatModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDChatModel.m; sourceTree = "<group>"; };
+		99D694F31C8C6B4400DA97E1 /* SDTimeLineRefreshFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTimeLineRefreshFooter.h; sourceTree = "<group>"; };
+		99D694F41C8C6B4400DA97E1 /* SDTimeLineRefreshFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTimeLineRefreshFooter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -398,6 +401,8 @@
 		4814577A1C8AD802004CA225 /* TimeLineRefreshFooter */ = {
 			isa = PBXGroup;
 			children = (
+				99D694F31C8C6B4400DA97E1 /* SDTimeLineRefreshFooter.h */,
+				99D694F41C8C6B4400DA97E1 /* SDTimeLineRefreshFooter.m */,
 			);
 			path = TimeLineRefreshFooter;
 			sourceTree = "<group>";
@@ -1361,6 +1366,7 @@
 				48EFF4411C7EAFBF009252A5 /* SDPhotoBrowser.m in Sources */,
 				48EFF46E1C7EAFDF009252A5 /* SDWebImageDecoder.m in Sources */,
 				4814577E1C8AD85B004CA225 /* SDTimeLineRefreshHeader.m in Sources */,
+				99D694F51C8C6B4400DA97E1 /* SDTimeLineRefreshFooter.m in Sources */,
 				48EFF4821C7EB0AF009252A5 /* SDWeiXinPhotoContainerView.m in Sources */,
 				48EFF4711C7EAFDF009252A5 /* SDWebImageManager.m in Sources */,
 				48EFF4211C7EAD24009252A5 /* SDTimeLineTableViewController.m in Sources */,
