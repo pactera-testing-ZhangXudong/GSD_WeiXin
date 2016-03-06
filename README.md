@@ -1,5 +1,16 @@
-# GSD_WeiXin
-高仿微信
+# GSD_WeiXin（高仿微信）
+## 高仿微信计划：
+### 已经实现功能
+1.微信首页（cell侧滑编辑、下拉眼睛动画、下拉拍短视频、点击进入聊天详情界面）
+2.通讯录（联系人字母排序、搜索界面）
+3.发现（朋友圈）
+4.我
+### 待实现功能（接下来一个月陆续完成）
+1.语音搜索
+2.朋友圈细节完善
+3.扫一扫
+4.相册、钱包
+5.搭建服务器实现实时通信功能
 
 ## 截图
 ![](http://ww2.sinaimg.cn/mw690/9b8146edgw1f1ndzg4y4rj20hr0vkwic.jpg) ![](http://ww2.sinaimg.cn/mw690/9b8146edgw1f1ndzhj8p5j20hr0vk429.jpg) ![](http://ww4.sinaimg.cn/mw690/9b8146edgw1f1ndzm47l3j20hr0vkaer.jpg) ![](http://ww1.sinaimg.cn/mw690/9b8146edgw1f1ne04v4qaj20hr0vk76k.jpg) ![](http://ww4.sinaimg.cn/mw690/9b8146edgw1f1ne04zbytj20hr0vkta7.jpg) ![](http://ww1.sinaimg.cn/mw690/9b8146edgw1f1ne0azhr2j20ku112tco.jpg) ![](http://ww4.sinaimg.cn/mw690/9b8146edgw1f1ne0e8cwbj20hr0vkgqp.jpg) ![](http://ww4.sinaimg.cn/mw690/9b8146edgw1f1ne0ho6dij20hr0vkmyt.jpg) ![]()
