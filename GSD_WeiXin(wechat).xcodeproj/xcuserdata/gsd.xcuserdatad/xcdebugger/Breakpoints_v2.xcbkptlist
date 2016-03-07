@@ -25,7 +25,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "155"
             endingLineNumber = "155"
-            landmarkName = "-didClickLink:linkText:linkLabel:"
+            landmarkName = "-generateAttributedStringWithCommentItemModel:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

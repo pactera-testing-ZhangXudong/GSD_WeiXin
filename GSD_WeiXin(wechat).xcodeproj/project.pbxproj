@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4814577E1C8AD85B004CA225 /* SDTimeLineRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 4814577D1C8AD85B004CA225 /* SDTimeLineRefreshHeader.m */; };
 		481457821C8AD8B4004CA225 /* SDBaseRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 481457811C8AD8B4004CA225 /* SDBaseRefreshView.m */; };
+		48217F941C8D7AF400A10D64 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 48217F931C8D7AF400A10D64 /* AppDelegate.m */; };
 		482711CA1C83F2140014C526 /* SDContactsSearchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 482711C91C83F2140014C526 /* SDContactsSearchResultController.m */; };
 		48D383581C885F7E00FCD677 /* SDContactModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 48D383571C885F7E00FCD677 /* SDContactModel.m */; };
 		48D3835C1C886A2800FCD677 /* SDContactsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48D3835B1C886A2800FCD677 /* SDContactsTableViewCell.m */; };
@@ -87,7 +88,6 @@
 		48F337D41C73205C0049144A /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F337D31C73205C0049144A /* TTTAttributedLabel.m */; };
 		48F337D81C7324250049144A /* SDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F337D71C7324250049144A /* SDWebViewController.m */; };
 		99D692C41C6B36C300DA97E1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D692C31C6B36C300DA97E1 /* main.m */; };
-		99D692C71C6B36C300DA97E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D692C61C6B36C300DA97E1 /* AppDelegate.m */; };
 		99D692CF1C6B36C300DA97E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99D692CE1C6B36C300DA97E1 /* Assets.xcassets */; };
 		99D692DD1C6B36C400DA97E1 /* GSD_WeiXin_wechat_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D692DC1C6B36C400DA97E1 /* GSD_WeiXin_wechat_Tests.m */; };
 		99D692E81C6B36C400DA97E1 /* GSD_WeiXin_wechat_UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D692E71C6B36C400DA97E1 /* GSD_WeiXin_wechat_UITests.m */; };
@@ -163,6 +163,8 @@
 		4814577D1C8AD85B004CA225 /* SDTimeLineRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTimeLineRefreshHeader.m; sourceTree = "<group>"; };
 		481457801C8AD8B4004CA225 /* SDBaseRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBaseRefreshView.h; sourceTree = "<group>"; };
 		481457811C8AD8B4004CA225 /* SDBaseRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDBaseRefreshView.m; sourceTree = "<group>"; };
+		48217F921C8D7AF400A10D64 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "GSD_WeiXin(wechat)/AppDelegate.h"; sourceTree = SOURCE_ROOT; };
+		48217F931C8D7AF400A10D64 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "GSD_WeiXin(wechat)/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
 		482711C81C83F2140014C526 /* SDContactsSearchResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDContactsSearchResultController.h; sourceTree = "<group>"; };
 		482711C91C83F2140014C526 /* SDContactsSearchResultController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDContactsSearchResultController.m; sourceTree = "<group>"; };
 		48D383561C885F7E00FCD677 /* SDContactModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDContactModel.h; sourceTree = "<group>"; };
@@ -293,8 +295,6 @@
 		48F337D71C7324250049144A /* SDWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebViewController.m; sourceTree = "<group>"; };
 		99D692BF1C6B36C300DA97E1 /* GSD_WeiXin(wechat).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GSD_WeiXin(wechat).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		99D692C31C6B36C300DA97E1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		99D692C51C6B36C300DA97E1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../../AppDelegate.h; sourceTree = "<group>"; };
-		99D692C61C6B36C300DA97E1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../../AppDelegate.m; sourceTree = "<group>"; };
 		99D692CE1C6B36C300DA97E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
 		99D692D31C6B36C300DA97E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		99D692D81C6B36C400DA97E1 /* GSD_WeiXin(wechat)Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GSD_WeiXin(wechat)Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -900,8 +900,8 @@
 		99D692FE1C6B37E800DA97E1 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
-				99D692C51C6B36C300DA97E1 /* AppDelegate.h */,
-				99D692C61C6B36C300DA97E1 /* AppDelegate.m */,
+				48217F921C8D7AF400A10D64 /* AppDelegate.h */,
+				48217F931C8D7AF400A10D64 /* AppDelegate.m */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -1353,7 +1353,6 @@
 				48EFF4441C7EAFBF009252A5 /* SDRefreshFooterView.m in Sources */,
 				48EFF4CB1C7F2A7F009252A5 /* MLTextAttachment.m in Sources */,
 				48EFF4CC1C7F2A7F009252A5 /* NSAttributedString+MLExpression.m in Sources */,
-				99D692C71C6B36C300DA97E1 /* AppDelegate.m in Sources */,
 				48EFF4461C7EAFBF009252A5 /* SDRefreshView.m in Sources */,
 				99D6936F1C6B4B3300DA97E1 /* UIView+SDAutoLayout.m in Sources */,
 				48EFF4401C7EAFBF009252A5 /* SDBrowserImageView.m in Sources */,
@@ -1368,6 +1367,7 @@
 				4814577E1C8AD85B004CA225 /* SDTimeLineRefreshHeader.m in Sources */,
 				99D694F51C8C6B4400DA97E1 /* SDTimeLineRefreshFooter.m in Sources */,
 				48EFF4821C7EB0AF009252A5 /* SDWeiXinPhotoContainerView.m in Sources */,
+				48217F941C8D7AF400A10D64 /* AppDelegate.m in Sources */,
 				48EFF4711C7EAFDF009252A5 /* SDWebImageManager.m in Sources */,
 				48EFF4211C7EAD24009252A5 /* SDTimeLineTableViewController.m in Sources */,
 				48EFF4471C7EAFBF009252A5 /* UIView+SDExtension.m in Sources */,
