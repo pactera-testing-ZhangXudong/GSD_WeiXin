@@ -168,7 +168,7 @@
         
         
         // 模拟“随机图片”
-        int random = arc4random_uniform(10);
+        int random = arc4random_uniform(6);
         
         NSMutableArray *temp = [NSMutableArray new];
         for (int i = 0; i < random; i++) {
@@ -179,7 +179,7 @@
             model.picNamesArray = [temp copy];
         }
         
-        int commentRandom = arc4random_uniform(6);
+        int commentRandom = arc4random_uniform(3);
         NSMutableArray *tempComments = [NSMutableArray new];
         for (int i = 0; i < commentRandom; i++) {
             SDTimeLineCellCommentItemModel *commentItemModel = [SDTimeLineCellCommentItemModel new];
