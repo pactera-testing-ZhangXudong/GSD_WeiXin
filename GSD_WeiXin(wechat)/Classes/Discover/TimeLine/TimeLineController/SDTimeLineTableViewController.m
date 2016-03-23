@@ -39,6 +39,8 @@
 
 #import "UITableView+SDAutoTableViewCellHeight.h"
 
+#import "UIView+SDAutoLayout.h"
+
 #define kTimeLineTableViewCellId @"SDTimeLineCell"
 
 @implementation SDTimeLineTableViewController
@@ -66,7 +68,7 @@
     _refreshFooter = [SDTimeLineRefreshFooter refreshFooterWithRefreshingText:@"正在加载数据..."];
     __weak typeof(_refreshFooter) weakRefreshFooter = _refreshFooter;
     [_refreshFooter addToScrollView:self.tableView refreshOpration:^{
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [weakSelf.dataArray addObjectsFromArray:[weakSelf creatModelsWithCount:10]];
             [weakSelf.tableView reloadData];
             [weakRefreshFooter endRefreshing];
@@ -91,7 +93,7 @@
         __weak typeof(_refreshHeader) weakHeader = _refreshHeader;
         __weak typeof(self) weakSelf = self;
         [_refreshHeader setRefreshingBlock:^{
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 weakSelf.dataArray = [[weakSelf creatModelsWithCount:10] mutableCopy];
                 [weakHeader endRefreshing];
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -106,6 +108,7 @@
 - (void)dealloc
 {
     [_refreshHeader removeFromSuperview];
+    [_refreshFooter removeFromSuperview];
 }
 
 - (NSArray *)creatModelsWithCount:(NSInteger)count
@@ -137,7 +140,7 @@
                                @"你瞅啥？",
                                @"瞅你咋地？？？！！！",
                                @"hello，看我",
-                               @"曾经在幽幽暗暗反反复复中追问，才知道平平淡淡从从容容才是真，再回首恍然如梦，再回首我心依旧，只有那不变的长路伴着我",
+                               @"曾经在幽幽暗暗反反复复中追问，才知道平平淡淡从从容容才是真",
                                @"人艰不拆",
                                @"咯咯哒",
                                @"呵呵~~~~~~~~",
@@ -214,9 +217,16 @@
         [cell setMoreButtonClickedBlock:^(NSIndexPath *indexPath) {
             SDTimeLineCellModel *model = weakSelf.dataArray[indexPath.row];
             model.isOpening = !model.isOpening;
-            [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         }];
     }
+    
+    ////// 此步设置用于实现cell的frame缓存，可以让tableview滑动更加流畅 //////
+    
+    cell.sd_tableView = tableView;
+    cell.sd_indexPath = indexPath;
+    
+    ///////////////////////////////////////////////////////////////////////
     
     cell.model = self.dataArray[indexPath.row];
     return cell;
