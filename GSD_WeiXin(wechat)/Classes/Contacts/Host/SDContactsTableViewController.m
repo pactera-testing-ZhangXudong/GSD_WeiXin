@@ -78,7 +78,6 @@
     [self genDataWithCount:30];
     
     self.tableView.sectionHeaderHeight = 25;
-    self.tableView.sectionIndexTrackingBackgroundColor = [UIColor redColor];
 }
 
 - (void)genDataWithCount:(NSInteger)count

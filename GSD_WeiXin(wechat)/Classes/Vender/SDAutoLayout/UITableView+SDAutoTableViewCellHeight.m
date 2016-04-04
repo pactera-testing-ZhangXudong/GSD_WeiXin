@@ -95,7 +95,7 @@
 
 - (UITableViewCell *)modelCell
 {
-    if (_modelCell.tag != kSDModelCellTag) {
+    if (_modelCell.contentView.tag != kSDModelCellTag) {
         _modelCell.contentView.tag = kSDModelCellTag;
     }
     return _modelCell;
@@ -193,6 +193,9 @@
     _contentViewWidth = contentViewWidth;
     
     self.modelCell.contentView.width = self.contentViewWidth;
+    
+    
+    [_subviewFrameCacheDict removeAllObjects];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self clearHeightCache];
