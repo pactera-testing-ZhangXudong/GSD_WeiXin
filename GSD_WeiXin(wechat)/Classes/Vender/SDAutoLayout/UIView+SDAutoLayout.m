@@ -604,6 +604,36 @@
 
 @implementation UILabel (SDLabelAutoResize)
 
++ (void)load
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        NSArray *selStringsArray = @[@"setText:"];
+        
+        [selStringsArray enumerateObjectsUsingBlock:^(NSString *selString, NSUInteger idx, BOOL *stop) {
+            NSString *mySelString = [@"sd_" stringByAppendingString:selString];
+            
+            Method originalMethod = class_getInstanceMethod(self, NSSelectorFromString(selString));
+            Method myMethod = class_getInstanceMethod(self, NSSelectorFromString(mySelString));
+            method_exchangeImplementations(originalMethod, myMethod);
+        }];
+    });
+}
+
+- (void)sd_setText:(NSString *)text
+{
+    // 如果程序崩溃在这行代码说明是你的label在执行“setText”方法时出了问题而不是在此自动布局库内部出现了问题，请检查你的“setText”方法
+    [self sd_setText:text];
+    
+    
+    if (self.sd_maxWidth) {
+        [self sizeToFit];
+    } else if (self.autoHeightRatioValue) {
+        self.frame = CGRectZero;
+    }
+}
+
 - (BOOL)isAttributedContent
 {
     return [objc_getAssociatedObject(self, _cmd) boolValue];
@@ -851,6 +881,7 @@
 
 - (void)sd_layoutSubviews
 {
+    // 如果程序崩溃在这行代码说明是你的view在执行“layoutSubvies”方法时出了问题而不是在此自动布局库内部出现了问题，请检查你的“layoutSubvies”方法
     [self sd_layoutSubviews];
     
     if (self.sd_equalWidthSubviews.count) {
@@ -879,6 +910,7 @@
             if (idx < caches.count) {
                 model.needsAutoResizeView.frame = [[caches objectAtIndex:idx] CGRectValue];
                 [self setupCornerRadiusWithView:model.needsAutoResizeView model:model];
+                model.needsAutoResizeView.sd_categoryManager.hasSetFrameWithCache = YES;
             } else {
                 [self sd_resizeWithModel:model];
             }
@@ -898,6 +930,10 @@
             cell.autoHeight = height + cell.sd_bottomViewBottomMargin;
         }
     } else if (![self isKindOfClass:[UITableViewCell class]] && (self.sd_bottomViewsArray.count || self.sd_rightViewsArray.count)) {
+        if (self.sd_categoryManager.hasSetFrameWithCache) {
+            self.sd_categoryManager.hasSetFrameWithCache = NO;
+            return;
+        }
         CGFloat contentHeight = 0;
         CGFloat contentWidth = 0;
         if (self.sd_bottomViewsArray) {
@@ -963,27 +999,121 @@
     if (!view) return;
     
     if (view.sd_maxWidth && (model.rightSpaceToView || model.rightEqualToView)) { // 靠右布局前提设置
-        if ([view isKindOfClass:[UILabel class]]) {
-            UILabel *label = (UILabel *)view;
-            CGFloat width = [view.sd_maxWidth floatValue] > 0 ? [view.sd_maxWidth floatValue] : MAXFLOAT;
-            label.numberOfLines = 1;
-            if (label.text.length) {
-                if (!label.isAttributedContent) {
-                    CGRect rect = [label.text boundingRectWithSize:CGSizeMake(width, label.height) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : label.font} context:nil];
-                    label.width = rect.size.width;
-                } else{
-                    [label sizeToFit];
-                    if (label.width > width) {
-                        label.width = width;
-                    }
-                }
-                label.fixedWidth = @(label.width);
-            } else {
-                label.width = 0;
-            }
-        }
+        [self layoutAutoWidthWidthView:view model:model];
+        view.fixedWidth = @(view.width);
     }
     
+    [self layoutWidthWithView:view model:model];
+    
+    [self layoutHeightWithView:view model:model];
+    
+    [self layoutLeftWithView:view model:model];
+    
+    [self layoutRightWithView:view model:model];
+    
+    if (view.autoHeightRatioValue && view.width > 0 && (model.bottomEqualToView || model.bottomSpaceToView)) { // 底部布局前提设置
+        [self layoutAutoHeightWidthView:view model:model];
+        view.fixedHeight = @(view.height);
+    }
+    
+    
+    [self layoutTopWithView:view model:model];
+    
+    [self layoutBottomWithView:view model:model];
+    
+    if (view.sd_maxWidth) {
+        [self layoutAutoWidthWidthView:view model:model];
+    }
+    
+    if (model.maxWidth && [model.maxWidth floatValue] < view.width) {
+        view.width = [model.maxWidth floatValue];
+    }
+    
+    if (model.minWidth && [model.minWidth floatValue] > view.width) {
+        view.width = [model.minWidth floatValue];
+    }
+    
+    if (view.autoHeightRatioValue && view.width > 0) {
+        [self layoutAutoHeightWidthView:view model:model];
+    }
+    
+    if (model.maxHeight && [model.maxHeight floatValue] < view.height) {
+        view.height = [model.maxHeight floatValue];
+    }
+    
+    if (model.minHeight && [model.minHeight floatValue] > view.height) {
+        view.height = [model.minHeight floatValue];
+    }
+    
+    if (model.widthEqualHeight) {
+        view.width = view.height;
+    }
+    
+    if (model.heightEqualWidth) {
+        view.height = view.width;
+    }
+    
+    if (view.didFinishAutoLayoutBlock) {
+        view.didFinishAutoLayoutBlock(view.frame);
+    }
+    
+    if (view.sd_bottomViewsArray.count || view.sd_rightViewsArray.count) {
+        [view layoutSubviews];
+    }
+    
+    
+    [self setupCornerRadiusWithView:view model:model];
+    
+}
+
+- (void)layoutAutoHeightWidthView:(UIView *)view model:(SDAutoLayoutModel *)model
+{
+    if ([view.autoHeightRatioValue floatValue] > 0) {
+        view.height = view.width * [view.autoHeightRatioValue floatValue];
+    } else {
+        if ([view isKindOfClass:[UILabel class]]) {
+            UILabel *label = (UILabel *)view;
+            label.numberOfLines = 0;
+            if (label.text.length) {
+                if (!label.isAttributedContent) {
+                    CGRect rect = [label.text boundingRectWithSize:CGSizeMake(label.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : label.font} context:nil];
+                    label.height = rect.size.height;
+                } else {
+                    [label sizeToFit];
+                }
+            } else {
+                label.height = 0;
+            }
+        } else {
+            view.height = 0;
+        }
+    }
+}
+
+- (void)layoutAutoWidthWidthView:(UIView *)view model:(SDAutoLayoutModel *)model
+{
+    if ([view isKindOfClass:[UILabel class]]) {
+        UILabel *label = (UILabel *)view;
+        CGFloat width = [view.sd_maxWidth floatValue] > 0 ? [view.sd_maxWidth floatValue] : MAXFLOAT;
+        label.numberOfLines = 1;
+        if (label.text.length) {
+            if (!label.isAttributedContent) {
+                CGRect rect = [label.text boundingRectWithSize:CGSizeMake(width, label.height) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : label.font} context:nil];
+                label.width = rect.size.width;
+            } else{
+                [label sizeToFit];
+                if (label.width > width) {
+                    label.width = width;
+                }
+            }
+        } else {
+            label.width = 0;
+        }
+    }
+}
+
+- (void)layoutWidthWithView:(UIView *)view model:(SDAutoLayoutModel *)model
+{
     if (model.width) {
         view.width = [model.width.value floatValue];
         view.fixedWidth = @(view.width);
@@ -991,7 +1121,10 @@
         view.width = model.ratio_width.refView.width * [model.ratio_width.value floatValue];
         view.fixedWidth = @(view.width);
     }
-    
+}
+
+- (void)layoutHeightWithView:(UIView *)view model:(SDAutoLayoutModel *)model
+{
     if (model.height) {
         view.height = [model.height.value floatValue];
         view.fixedHeight = @(view.height);
@@ -999,7 +1132,10 @@
         view.height = [model.ratio_height.value floatValue] * model.ratio_height.refView.height;
         view.fixedHeight = @(view.height);
     }
-    
+}
+
+- (void)layoutLeftWithView:(UIView *)view model:(SDAutoLayoutModel *)model
+{
     if (model.left) {
         if (view.superview == model.left.refView) {
             if (!view.fixedWidth) { // view.autoLeft && view.autoRight
@@ -1031,38 +1167,41 @@
     } else if (model.centerX) {
         view.centerX = [model.centerX floatValue];
     }
-    
-    [self layoutRightWithView:view model:model];
-    
-    if (view.autoHeightRatioValue && view.width > 0 && (model.bottomEqualToView || model.bottomSpaceToView)) { // 底部布局前提设置
-        if ([view.autoHeightRatioValue floatValue] > 0) {
-            view.height = view.width * [view.autoHeightRatioValue floatValue];
+}
+
+- (void)layoutRightWithView:(UIView *)view model:(SDAutoLayoutModel *)model
+{
+    if (model.right) {
+        if (view.superview == model.right.refView) {
+            if (!view.fixedWidth) { // view.autoLeft && view.autoRight
+                view.width = model.right.refView.width - view.left - [model.right.value floatValue];
+            }
+            view.right = model.right.refView.width - [model.right.value floatValue];
         } else {
-            if ([view isKindOfClass:[UILabel class]]) {
-                UILabel *label = (UILabel *)view;
-                if (model.top || model.equalTop) {
-                    model.bottom = nil;
-                    model.equalBottom = nil;
-                }
-                label.numberOfLines = 0;
-                if (label.text.length) {
-                    if (!label.isAttributedContent) {
-                        CGRect rect = [label.text boundingRectWithSize:CGSizeMake(label.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : label.font} context:nil];
-                        label.height = rect.size.height;
-                    } else {
-                        [label sizeToFit];
-                    }
-                    label.fixedHeight = @(label.height);
-                } else {
-                    label.height = 0;
-                }
+            if (!view.fixedWidth) { // view.autoLeft && view.autoRight
+                view.width =  model.right.refView.left - view.left - [model.right.value floatValue];
+            }
+            view.right = model.right.refView.left - [model.right.value floatValue];
+        }
+    } else if (model.equalRight) {
+        if (!view.fixedWidth) {
+            if (model.equalRight.refView == view.superview) {
+                view.width = model.equalRight.refView.width - view.left;
             } else {
-                view.height = 0;
+                view.width = model.equalRight.refView.right - view.left;
             }
         }
+        
+        view.right = model.equalRight.refView.right;
+        if (view.superview == model.equalRight.refView) {
+            view.right = model.equalRight.refView.width;
+        }
+        
     }
-    
-    
+}
+
+- (void)layoutTopWithView:(UIView *)view model:(SDAutoLayoutModel *)model
+{
     if (model.top) {
         if (view.superview == model.top.refView) {
             if (!view.fixedHeight) { // view.autoTop && view.autoBottom && view.bottom
@@ -1095,120 +1234,6 @@
         }
     } else if (model.centerY) {
         view.centerY = [model.centerY floatValue];
-    }
-    
-    [self layoutBottomWithView:view model:model];
-    
-    if (view.sd_maxWidth) {
-        if ([view isKindOfClass:[UILabel class]]) {
-            UILabel *label = (UILabel *)view;
-            CGFloat width = [view.sd_maxWidth floatValue] > 0 ? [view.sd_maxWidth floatValue] : MAXFLOAT;
-            label.numberOfLines = 1;
-            if (label.text.length) {
-                if (!label.isAttributedContent) {
-                    CGRect rect = [label.text boundingRectWithSize:CGSizeMake(width, label.height) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : label.font} context:nil];
-                    label.width = rect.size.width;
-                    label.fixedWidth = @(label.width);
-                } else{
-                    [label sizeToFit];
-                    if (label.width > width) {
-                        label.width = width;
-                    }
-                }
-            } else {
-                label.width = 0;
-            }
-        }
-    }
-    
-    if (model.maxWidth && [model.maxWidth floatValue] < view.width) {
-        view.width = [model.maxWidth floatValue];
-    }
-    
-    if (model.minWidth && [model.minWidth floatValue] > view.width) {
-        view.width = [model.minWidth floatValue];
-    }
-    
-    if (view.autoHeightRatioValue && view.width > 0) {
-        if ([view.autoHeightRatioValue floatValue] > 0) {
-            view.height = view.width * [view.autoHeightRatioValue floatValue];
-        } else {
-            if ([view isKindOfClass:[UILabel class]]) {
-                UILabel *label = (UILabel *)view;
-                label.numberOfLines = 0;
-                if (label.text.length) {
-                    if (!label.isAttributedContent) {
-                        CGRect rect = [label.text boundingRectWithSize:CGSizeMake(label.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : label.font} context:nil];
-                        label.height = rect.size.height;
-                    } else {
-                        [label sizeToFit];
-                    }
-                } else {
-                    label.height = 0;
-                }
-            } else {
-                view.height = 0;
-            }
-        }
-    }
-    
-    if (model.maxHeight && [model.maxHeight floatValue] < view.height) {
-        view.height = [model.maxHeight floatValue];
-    }
-    
-    if (model.minHeight && [model.minHeight floatValue] > view.height) {
-        view.height = [model.minHeight floatValue];
-    }
-    
-    if (model.widthEqualHeight) {
-        view.width = view.height;
-    }
-    
-    if (model.heightEqualWidth) {
-        view.height = view.width;
-    }
-    
-    if (view.didFinishAutoLayoutBlock) {
-        view.didFinishAutoLayoutBlock(view.frame);
-    }
-    
-    if (view.sd_bottomViewsArray.count || view.sd_rightViewsArray.count) {
-        [view layoutSubviews];
-    }
-    
-    
-    [self setupCornerRadiusWithView:view model:model];
-    
-}
-
-- (void)layoutRightWithView:(UIView *)view model:(SDAutoLayoutModel *)model
-{
-    if (model.right) {
-        if (view.superview == model.right.refView) {
-            if (!view.fixedWidth) { // view.autoLeft && view.autoRight
-                view.width = model.right.refView.width - view.left - [model.right.value floatValue];
-            }
-            view.right = model.right.refView.width - [model.right.value floatValue];
-        } else {
-            if (!view.fixedWidth) { // view.autoLeft && view.autoRight
-                view.width =  model.right.refView.left - view.left - [model.right.value floatValue];
-            }
-            view.right = model.right.refView.left - [model.right.value floatValue];
-        }
-    } else if (model.equalRight) {
-        if (!view.fixedWidth) {
-            if (model.equalRight.refView == view.superview) {
-                view.width = model.equalRight.refView.width - view.left;
-            } else {
-                view.width = model.equalRight.refView.right - view.left;
-            }
-        }
-        
-        view.right = model.equalRight.refView.right;
-        if (view.superview == model.equalRight.refView) {
-            view.right = model.equalRight.refView.width;
-        }
-        
     }
 }
 
