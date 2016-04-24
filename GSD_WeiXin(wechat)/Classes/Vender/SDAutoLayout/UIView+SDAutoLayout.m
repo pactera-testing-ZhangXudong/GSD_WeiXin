@@ -912,6 +912,9 @@
                 [self setupCornerRadiusWithView:model.needsAutoResizeView model:model];
                 model.needsAutoResizeView.sd_categoryManager.hasSetFrameWithCache = YES;
             } else {
+                if (model.needsAutoResizeView.sd_categoryManager.hasSetFrameWithCache) {
+                    model.needsAutoResizeView.sd_categoryManager.hasSetFrameWithCache = NO;
+                }
                 [self sd_resizeWithModel:model];
             }
         }];
@@ -966,6 +969,8 @@
                 scrollView.contentSize = contentSize;
             }
         } else {
+
+            
             // 如果这里出现循环调用情况请把demo发送到gsdios@126.com，谢谢配合。
             if (self.sd_bottomViewsArray.count && (floorf(contentHeight) != floorf(self.height))) {
                 self.height = contentHeight;
