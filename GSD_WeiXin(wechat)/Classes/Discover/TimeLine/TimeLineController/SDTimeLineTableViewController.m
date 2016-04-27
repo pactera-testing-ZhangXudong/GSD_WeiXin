@@ -12,7 +12,7 @@
  *
  * GSD_WeiXin
  *
- * QQ交流群: 459274049
+ * QQ交流群: 362419100(2群) 459274049（1群已满）
  * Email : gsdios@126.com
  * GitHub: https://github.com/gsdios/GSD_WeiXin
  * 新浪微博:GSD_iOS
@@ -47,6 +47,11 @@ static CGFloat textFieldH = 40;
 
 @interface SDTimeLineTableViewController () <SDTimeLineCellDelegate, UITextFieldDelegate>
 
+@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, assign) BOOL isReplayingComment;
+@property (nonatomic, strong) NSIndexPath *currentEditingIndexthPath;
+@property (nonatomic, copy) NSString *commentToUser;
+
 @end
 
 @implementation SDTimeLineTableViewController
@@ -55,9 +60,7 @@ static CGFloat textFieldH = 40;
     SDTimeLineRefreshFooter *_refreshFooter;
     SDTimeLineRefreshHeader *_refreshHeader;
     CGFloat _lastScrollViewOffsetY;
-    UITextField *_textField;
     CGFloat _totalKeybordHeight;
-    NSIndexPath *_currentEditingIndexthPath;
 }
 
 - (void)viewDidLoad
@@ -271,6 +274,16 @@ static CGFloat textFieldH = 40;
             model.isOpening = !model.isOpening;
             [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         }];
+        
+        [cell setDidClickCommentLabelBlock:^(NSString *commentId, CGRect rectInWindow, NSIndexPath *indexPath) {
+            weakSelf.textField.placeholder = [NSString stringWithFormat:@"  回复：%@", commentId];
+            weakSelf.currentEditingIndexthPath = indexPath;
+            [weakSelf.textField becomeFirstResponder];
+            weakSelf.isReplayingComment = YES;
+            weakSelf.commentToUser = commentId;
+            [weakSelf adjustTableViewToFitKeyboardWithRect:rectInWindow];
+        }];
+        
         cell.delegate = self;
     }
     
@@ -361,6 +374,12 @@ static CGFloat textFieldH = 40;
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:_currentEditingIndexthPath];
     CGRect rect = [cell.superview convertRect:cell.frame toView:window];
+    [self adjustTableViewToFitKeyboardWithRect:rect];
+}
+
+- (void)adjustTableViewToFitKeyboardWithRect:(CGRect)rect
+{
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
     CGFloat delta = CGRectGetMaxY(rect) - (window.bounds.size.height - _totalKeybordHeight);
     
     CGPoint offset = self.tableView.contentOffset;
@@ -382,15 +401,23 @@ static CGFloat textFieldH = 40;
         SDTimeLineCellModel *model = self.dataArray[_currentEditingIndexthPath.row];
         NSMutableArray *temp = [NSMutableArray new];
         [temp addObjectsFromArray:model.commentItemsArray];
-        
         SDTimeLineCellCommentItemModel *commentItemModel = [SDTimeLineCellCommentItemModel new];
-        commentItemModel.firstUserName = @"GSD_iOS";
-        commentItemModel.commentString = textField.text;
-        commentItemModel.firstUserId = @"GSD_iOS";
+        
+        if (self.isReplayingComment) {
+            commentItemModel.firstUserName = @"GSD_iOS";
+            commentItemModel.firstUserId = @"GSD_iOS";
+            commentItemModel.secondUserName = self.commentToUser;
+            commentItemModel.secondUserId = self.commentToUser;
+            commentItemModel.commentString = textField.text;
+            
+            self.isReplayingComment = NO;
+        } else {
+            commentItemModel.firstUserName = @"GSD_iOS";
+            commentItemModel.commentString = textField.text;
+            commentItemModel.firstUserId = @"GSD_iOS";
+        }
         [temp addObject:commentItemModel];
-        
         model.commentItemsArray = [temp copy];
-        
         [self.tableView reloadRowsAtIndexPaths:@[_currentEditingIndexthPath] withRowAnimation:UITableViewRowAnimationNone];
         
         _textField.text = @"";

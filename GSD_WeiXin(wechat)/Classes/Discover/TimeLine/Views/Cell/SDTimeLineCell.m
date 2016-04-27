@@ -12,7 +12,7 @@
  *
  * GSD_WeiXin
  *
- * QQ交流群: 459274049
+ * QQ交流群: 362419100(2群) 459274049（1群已满）
  * Email : gsdios@126.com
  * GitHub: https://github.com/gsdios/GSD_WeiXin
  * 新浪微博:GSD_iOS
@@ -99,7 +99,14 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     _picContainerView = [SDWeiXinPhotoContainerView new];
     
+    __weak typeof(self) weakSelf = self;
+    
     _commentView = [SDTimeLineCellCommentView new];
+    [_commentView setDidClickCommentLabelBlock:^(NSString *commentId, CGRect rectInWindow) {
+        if (weakSelf.didClickCommentLabelBlock) {
+            weakSelf.didClickCommentLabelBlock(commentId, rectInWindow, weakSelf.indexPath);
+        }
+    }];
     
     _timeLabel = [UILabel new];
     _timeLabel.font = [UIFont systemFontOfSize:13];
@@ -107,7 +114,7 @@ NSString *const kSDTimeLineCellOperationButtonClickedNotification = @"SDTimeLine
     
     
     _operationMenu = [SDTimeLineCellOperationMenu new];
-    __weak typeof(self) weakSelf = self;
+    
     [_operationMenu setLikeButtonClickedOperation:^{
         if ([weakSelf.delegate respondsToSelector:@selector(didClickLikeButtonInCell:)]) {
             [weakSelf.delegate didClickLikeButtonInCell:weakSelf];

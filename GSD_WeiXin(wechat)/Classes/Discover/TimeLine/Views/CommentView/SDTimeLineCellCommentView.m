@@ -12,7 +12,7 @@
  *
  * GSD_WeiXin
  *
- * QQ交流群: 459274049
+ * QQ交流群: 362419100(2群) 459274049（1群已满）
  * Email : gsdios@126.com
  * GitHub: https://github.com/gsdios/GSD_WeiXin
  * 新浪微博:GSD_iOS
@@ -83,12 +83,16 @@
     long needsToAddCount = commentItemsArray.count > originalLabelsCount ? (commentItemsArray.count - originalLabelsCount) : 0;
     for (int i = 0; i < needsToAddCount; i++) {
         MLLinkLabel *label = [MLLinkLabel new];
+        label.tag = i;
         UIColor *highLightColor = TimeLineCellHighlightedColor;
         label.linkTextAttributes = @{NSForegroundColorAttributeName : highLightColor};
         label.font = [UIFont systemFontOfSize:14];
         label.delegate = self;
         [self addSubview:label];
         [self.commentLabelsArray addObject:label];
+        label.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentLabelTapped:)];
+        [label addGestureRecognizer:tap];
     }
     
     for (int i = 0; i < commentItemsArray.count; i++) {
@@ -197,6 +201,16 @@
 }
 
 #pragma mark - private actions
+
+- (void)commentLabelTapped:(UITapGestureRecognizer *)tap
+{
+    if (self.didClickCommentLabelBlock) {
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        CGRect rect = [tap.view.superview convertRect:tap.view.frame toView:window];
+        SDTimeLineCellCommentItemModel *model = self.commentItemsArray[tap.view.tag];
+        self.didClickCommentLabelBlock(model.firstUserName, rect);
+    }
+}
 
 - (NSMutableAttributedString *)generateAttributedStringWithCommentItemModel:(SDTimeLineCellCommentItemModel *)model
 {
