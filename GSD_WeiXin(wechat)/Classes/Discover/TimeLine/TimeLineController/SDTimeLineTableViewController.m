@@ -312,6 +312,7 @@ static CGFloat textFieldH = 40;
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [_textField resignFirstResponder];
+    _textField.placeholder = nil;
 }
 
 
@@ -421,6 +422,7 @@ static CGFloat textFieldH = 40;
         [self.tableView reloadRowsAtIndexPaths:@[_currentEditingIndexthPath] withRowAnimation:UITableViewRowAnimationNone];
         
         _textField.text = @"";
+        _textField.placeholder = nil;
         
         return YES;
     }
