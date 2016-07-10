@@ -12,7 +12,7 @@
  *
  * GSD_WeiXin
  *
- * QQ交流群: 362419100(2群) 459274049（1群已满）
+ * QQ交流群: 459274049
  * Email : gsdios@126.com
  * GitHub: https://github.com/gsdios/GSD_WeiXin
  * 新浪微博:GSD_iOS
@@ -55,6 +55,8 @@
 @property (nonatomic, copy) NSString *userName;
 @property (nonatomic, copy) NSString *userId;
 
+@property (nonatomic, copy) NSAttributedString *attributedContent;
+
 @end
 
 
@@ -67,5 +69,7 @@
 
 @property (nonatomic, copy) NSString *secondUserName;
 @property (nonatomic, copy) NSString *secondUserId;
+
+@property (nonatomic, copy) NSAttributedString *attributedContent;
 
 @end

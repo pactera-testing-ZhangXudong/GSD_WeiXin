@@ -78,6 +78,7 @@
     if (self.likeButtonClickedOperation) {
         self.likeButtonClickedOperation();
     }
+    self.show = NO;
 }
 
 - (void)commentButtonClicked
@@ -95,12 +96,12 @@
     [UIView animateWithDuration:0.2 animations:^{
         if (!show) {
             [self clearAutoWidthSettings];
-            self.fixedWidth = @(0);
+            self.sd_layout
+            .widthIs(0);
         } else {
             self.fixedWidth = nil;
             [self setupAutoWidthWithRightView:_commentButton rightMargin:5];
         }
-        // 更新cell内部的控件的布局（cell内部控件专属的更新约束方法,如果启用了cell frame缓存则会自动清除缓存再更新约束）
         [self updateLayoutWithCellContentView:self.superview];
     }];
 }

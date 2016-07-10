@@ -12,7 +12,7 @@
  *
  * GSD_WeiXin
  *
- * QQ交流群: 362419100(2群) 459274049（1群已满）
+ * QQ交流群: 459274049
  * Email : gsdios@126.com
  * GitHub: https://github.com/gsdios/GSD_WeiXin
  * 新浪微博:GSD_iOS
@@ -30,6 +30,8 @@
 #import "UIView+SDAutoLayout.h"
 #import "SDTimeLineCellModel.h"
 #import "MLLinkLabel.h"
+
+#import "LEETheme.h"
 
 @interface SDTimeLineCellCommentView () <MLLinkLabelDelegate>
 
@@ -51,7 +53,12 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        
         [self setupViews];
+    
+        //设置主题
+        [self configTheme];
+
     }
     return self;
 }
@@ -59,20 +66,41 @@
 - (void)setupViews
 {
     _bgImageView = [UIImageView new];
-    UIImage *bgImage = [[UIImage imageNamed:@"LikeCmtBg"] stretchableImageWithLeftCapWidth:40 topCapHeight:30];
+    UIImage *bgImage = [[[UIImage imageNamed:@"LikeCmtBg"] stretchableImageWithLeftCapWidth:40 topCapHeight:30] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     _bgImageView.image = bgImage;
+    _bgImageView.backgroundColor = [UIColor clearColor];
     [self addSubview:_bgImageView];
     
     _likeLabel = [MLLinkLabel new];
     _likeLabel.font = [UIFont systemFontOfSize:14];
     _likeLabel.linkTextAttributes = @{NSForegroundColorAttributeName : TimeLineCellHighlightedColor};
+    _likeLabel.isAttributedContent = YES;
     [self addSubview:_likeLabel];
     
     _likeLableBottomLine = [UIView new];
-    _likeLableBottomLine.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2];
     [self addSubview:_likeLableBottomLine];
     
     _bgImageView.sd_layout.spaceToSuperView(UIEdgeInsetsMake(0, 0, 0, 0));
+}
+
+- (void)configTheme{
+    
+    self.lee_theme
+    .LeeAddBackgroundColor(DAY , [UIColor whiteColor])
+    .LeeAddBackgroundColor(NIGHT , [UIColor blackColor]);
+    
+    _bgImageView.lee_theme
+    .LeeAddTintColor(DAY , SDColor(230, 230, 230, 1.0f))
+    .LeeAddTintColor(NIGHT , SDColor(30, 30, 30, 1.0f));
+    
+    _likeLabel.lee_theme
+    .LeeAddTextColor(DAY , [UIColor blackColor])
+    .LeeAddTextColor(NIGHT , [UIColor grayColor]);
+    
+    _likeLableBottomLine.lee_theme
+    .LeeAddBackgroundColor(DAY , SDColor(210, 210, 210, 1.0f))
+    .LeeAddBackgroundColor(NIGHT , SDColor(60, 60, 60, 1.0f));
+    
 }
 
 - (void)setCommentItemsArray:(NSArray *)commentItemsArray
@@ -83,22 +111,24 @@
     long needsToAddCount = commentItemsArray.count > originalLabelsCount ? (commentItemsArray.count - originalLabelsCount) : 0;
     for (int i = 0; i < needsToAddCount; i++) {
         MLLinkLabel *label = [MLLinkLabel new];
-        label.tag = i;
         UIColor *highLightColor = TimeLineCellHighlightedColor;
         label.linkTextAttributes = @{NSForegroundColorAttributeName : highLightColor};
+        label.lee_theme
+        .LeeAddTextColor(DAY , [UIColor blackColor])
+        .LeeAddTextColor(NIGHT , [UIColor grayColor]);
         label.font = [UIFont systemFontOfSize:14];
         label.delegate = self;
         [self addSubview:label];
         [self.commentLabelsArray addObject:label];
-        label.userInteractionEnabled = YES;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentLabelTapped:)];
-        [label addGestureRecognizer:tap];
     }
     
     for (int i = 0; i < commentItemsArray.count; i++) {
         SDTimeLineCellCommentItemModel *model = commentItemsArray[i];
         MLLinkLabel *label = self.commentLabelsArray[i];
-        label.attributedText = [self generateAttributedStringWithCommentItemModel:model];
+        if (!model.attributedContent) {
+            model.attributedContent = [self generateAttributedStringWithCommentItemModel:model];
+        }
+        label.attributedText = model.attributedContent;
     }
 }
 
@@ -118,8 +148,10 @@
         if (i > 0) {
             [attributedText appendAttributedString:[[NSAttributedString alloc] initWithString:@"，"]];
         }
-        [attributedText appendAttributedString:[self generateAttributedStringWithLikeItemModel:model]];
-        ;
+        if (!model.attributedContent) {
+            model.attributedContent = [self generateAttributedStringWithLikeItemModel:model];
+        }
+        [attributedText appendAttributedString:model.attributedContent];
     }
     
     _likeLabel.attributedText = [attributedText copy];
@@ -145,6 +177,15 @@
         }];
     }
     
+    if (!commentItemsArray.count && !likeItemsArray.count) {
+        self.fixedWidth = @(0); // 如果没有评论或者点赞，设置commentview的固定宽度为0（设置了fixedWith的控件将不再在自动布局过程中调整宽度）
+        self.fixedHeight = @(0); // 如果没有评论或者点赞，设置commentview的固定高度为0（设置了fixedHeight的控件将不再在自动布局过程中调整高度）
+        return;
+    } else {
+        self.fixedHeight = nil; // 取消固定宽度约束
+        self.fixedWidth = nil; // 取消固定高度约束
+    }
+    
     CGFloat margin = 5;
     
     UIView *lastTopView = nil;
@@ -156,11 +197,9 @@
         .topSpaceToView(lastTopView, 10)
         .autoHeightRatio(0);
         
-        _likeLabel.isAttributedContent = YES;
-        
         lastTopView = _likeLabel;
-        
     } else {
+        _likeLabel.attributedText = nil;
         _likeLabel.sd_resetLayout
         .heightIs(0);
     }
@@ -201,16 +240,6 @@
 }
 
 #pragma mark - private actions
-
-- (void)commentLabelTapped:(UITapGestureRecognizer *)tap
-{
-    if (self.didClickCommentLabelBlock) {
-        UIWindow *window = [UIApplication sharedApplication].keyWindow;
-        CGRect rect = [tap.view.superview convertRect:tap.view.frame toView:window];
-        SDTimeLineCellCommentItemModel *model = self.commentItemsArray[tap.view.tag];
-        self.didClickCommentLabelBlock(model.firstUserName, rect);
-    }
-}
 
 - (NSMutableAttributedString *)generateAttributedStringWithCommentItemModel:(SDTimeLineCellCommentItemModel *)model
 {
