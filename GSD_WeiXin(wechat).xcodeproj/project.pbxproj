@@ -11,6 +11,7 @@
 		481457821C8AD8B4004CA225 /* SDBaseRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 481457811C8AD8B4004CA225 /* SDBaseRefreshView.m */; };
 		48217F941C8D7AF400A10D64 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 48217F931C8D7AF400A10D64 /* AppDelegate.m */; };
 		482711CA1C83F2140014C526 /* SDContactsSearchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 482711C91C83F2140014C526 /* SDContactsSearchResultController.m */; };
+		4840EF6A1D34B68D00BE7A12 /* LEETheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 4840EF691D34B68D00BE7A12 /* LEETheme.m */; };
 		48D383581C885F7E00FCD677 /* SDContactModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 48D383571C885F7E00FCD677 /* SDContactModel.m */; };
 		48D3835C1C886A2800FCD677 /* SDContactsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 48D3835B1C886A2800FCD677 /* SDContactsTableViewCell.m */; };
 		48EFF4211C7EAD24009252A5 /* SDTimeLineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48EFF4201C7EAD24009252A5 /* SDTimeLineTableViewController.m */; };
@@ -87,7 +88,6 @@
 		48F337D01C7320380049144A /* MLEmojiLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F337CC1C7320380049144A /* MLEmojiLabel.m */; };
 		48F337D41C73205C0049144A /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F337D31C73205C0049144A /* TTTAttributedLabel.m */; };
 		48F337D81C7324250049144A /* SDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48F337D71C7324250049144A /* SDWebViewController.m */; };
-		994D8C711D3204B90013C174 /* LEETheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 994D8C701D3204B90013C174 /* LEETheme.m */; };
 		9953C5301CAF94FD00A260D0 /* SDTimeLineCellOperationMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 9953C52F1CAF94FD00A260D0 /* SDTimeLineCellOperationMenu.m */; };
 		99D692C41C6B36C300DA97E1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D692C31C6B36C300DA97E1 /* main.m */; };
 		99D692CF1C6B36C300DA97E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99D692CE1C6B36C300DA97E1 /* Assets.xcassets */; };
@@ -169,6 +169,8 @@
 		48217F931C8D7AF400A10D64 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "GSD_WeiXin(wechat)/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
 		482711C81C83F2140014C526 /* SDContactsSearchResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDContactsSearchResultController.h; sourceTree = "<group>"; };
 		482711C91C83F2140014C526 /* SDContactsSearchResultController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDContactsSearchResultController.m; sourceTree = "<group>"; };
+		4840EF681D34B68D00BE7A12 /* LEETheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEETheme.h; sourceTree = "<group>"; };
+		4840EF691D34B68D00BE7A12 /* LEETheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEETheme.m; sourceTree = "<group>"; };
 		48D383561C885F7E00FCD677 /* SDContactModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDContactModel.h; sourceTree = "<group>"; };
 		48D383571C885F7E00FCD677 /* SDContactModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDContactModel.m; sourceTree = "<group>"; };
 		48D3835A1C886A2800FCD677 /* SDContactsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDContactsTableViewCell.h; sourceTree = "<group>"; };
@@ -295,8 +297,6 @@
 		48F337D31C73205C0049144A /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		48F337D61C7324250049144A /* SDWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebViewController.h; sourceTree = "<group>"; };
 		48F337D71C7324250049144A /* SDWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebViewController.m; sourceTree = "<group>"; };
-		994D8C6F1D3204B90013C174 /* LEETheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEETheme.h; sourceTree = "<group>"; };
-		994D8C701D3204B90013C174 /* LEETheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LEETheme.m; sourceTree = "<group>"; };
 		9953C52E1CAF94FD00A260D0 /* SDTimeLineCellOperationMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTimeLineCellOperationMenu.h; sourceTree = "<group>"; };
 		9953C52F1CAF94FD00A260D0 /* SDTimeLineCellOperationMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTimeLineCellOperationMenu.m; sourceTree = "<group>"; };
 		99D692BF1C6B36C300DA97E1 /* GSD_WeiXin(wechat).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GSD_WeiXin(wechat).app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -438,6 +438,15 @@
 				482711C91C83F2140014C526 /* SDContactsSearchResultController.m */,
 			);
 			path = ContactsSearchResultController;
+			sourceTree = "<group>";
+		};
+		4840EF671D34B68D00BE7A12 /* LEETheme */ = {
+			isa = PBXGroup;
+			children = (
+				4840EF681D34B68D00BE7A12 /* LEETheme.h */,
+				4840EF691D34B68D00BE7A12 /* LEETheme.m */,
+			);
+			path = LEETheme;
 			sourceTree = "<group>";
 		};
 		48D383551C885F5600FCD677 /* Model */ = {
@@ -756,16 +765,6 @@
 			path = WebViewController;
 			sourceTree = "<group>";
 		};
-		994D8C6E1D3204B90013C174 /* LEETheme */ = {
-			isa = PBXGroup;
-			children = (
-				994D8C6F1D3204B90013C174 /* LEETheme.h */,
-				994D8C701D3204B90013C174 /* LEETheme.m */,
-			);
-			name = LEETheme;
-			path = ../../../../SDAutoLayout/SDAutoLayoutDemo/Vender/LEETheme;
-			sourceTree = "<group>";
-		};
 		9953C52D1CAF94CA00A260D0 /* OperationMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -914,7 +913,7 @@
 		99D692FD1C6B37C600DA97E1 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
-				994D8C6E1D3204B90013C174 /* LEETheme */,
+				4840EF671D34B68D00BE7A12 /* LEETheme */,
 				48EFF4481C7EAFDF009252A5 /* SDWebImage */,
 				48EFF42D1C7EAFBF009252A5 /* SDPhotoBrowser */,
 				48EFF4351C7EAFBF009252A5 /* SDRefeshView */,
@@ -1430,7 +1429,7 @@
 				48EFF4761C7EAFDF009252A5 /* UIImage+WebP.m in Sources */,
 				48EFF4291C7EAE02009252A5 /* SDTimeLineCellModel.m in Sources */,
 				48EFF4CF1C7F2A7F009252A5 /* MLLabel.m in Sources */,
-				994D8C711D3204B90013C174 /* LEETheme.m in Sources */,
+				4840EF6A1D34B68D00BE7A12 /* LEETheme.m in Sources */,
 				99D693011C6B381800DA97E1 /* SDAppFrameTabBarController.m in Sources */,
 				48EFF4721C7EAFDF009252A5 /* SDWebImagePrefetcher.m in Sources */,
 				48EFF4811C7EB0AF009252A5 /* SDTimeLineCell.m in Sources */,
