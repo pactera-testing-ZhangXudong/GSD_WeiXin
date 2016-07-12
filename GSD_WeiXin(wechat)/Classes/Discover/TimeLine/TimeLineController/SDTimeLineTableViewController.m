@@ -34,7 +34,6 @@
 #import "SDTimeLineRefreshHeader.h"
 #import "SDTimeLineRefreshFooter.h"
 #import "SDTimeLineCell.h"
-
 #import "SDTimeLineCellModel.h"
 
 #import "UITableView+SDAutoTableViewCellHeight.h"
