@@ -1,5 +1,4 @@
-# GSD_WeiXin（高仿微信）
-### 新建QQ交流群：362419100（2群新开）459274049(1群已满)
+# GSD_WeiXin
 ### 朋友圈demo视频教程（上）：
 #####http://v.youku.com/v_show/id_XMTYzNzg2NzA0MA==.html
 ## 高仿微信计划：
