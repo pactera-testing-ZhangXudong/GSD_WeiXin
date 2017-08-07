@@ -1,6 +1,11 @@
 # GSD_WeiXin
 ### 朋友圈demo视频教程（上）：
 #####http://v.youku.com/v_show/id_XMTYzNzg2NzA0MA==.html
+
+### 我的公众号
+主要用于编程经验分享+SD系列开源库答疑解惑，有需要的请关注！
+ ![](https://github.com/gsdios/SDCycleScrollView/blob/master/qrcode_for_gh_a69e5c4e13c4_430.jpg?raw=true)
+
 ## 高仿微信计划：
 ### 已经实现功能
 1.微信首页（cell侧滑编辑、下拉眼睛动画、下拉拍短视频、点击进入聊天详情界面）
