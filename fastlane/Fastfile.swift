@@ -2,7 +2,7 @@
 // If you have a custom Fastfile.swift, this file will be replaced by it
 // Don't modify this file unless you are familiar with how fastlane's swift code generation works
 // *** This file will be overwritten or replaced during build time ***
-
+opt_out_usage
 import Foundation
 
 open class Fastfile: LaneFile {
