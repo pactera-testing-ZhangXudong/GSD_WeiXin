@@ -3,44 +3,13 @@
 // Don't modify this file unless you are familiar with how fastlane's swift code generation works
 // *** This file will be overwritten or replaced during build time ***
 
-import Foundation
+import_from_git(url: 'https://github.com/fastlane/fastlane')
+# or
+import_from_git(url: 'git@github.com:MyAwesomeRepo/MyAwesomeFastlaneStandardSetup.git',
+               path: 'fastlane/Fastfile')
 
-open class Fastfile: LaneFile {
-    override public init() {
-        super.init()
-    }
-}
-
-before_all do |lane, options|
+lane :new_main_lane do
   # ...
-end
-
-before_each do |lane, options|
-  # ...
-end
-
-lane :deploy do |options|
-  # ...
-  if options[:submit]
-    # Only when submit is true
-  end
-  # ...
-  increment_build_number(build_number: options[:build_number])
-  # ...
-end
-
-after_all do |lane, options|
-  # ...
-end
-
-after_each do |lane, options|
-  # ...
-end
-
-error do |lane, exception, options|
-  if options[:debug]
-    puts "Hi :)"
-  end
 end
 // Please don't remove the lines below
 // They are used to detect outdated files
