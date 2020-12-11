@@ -11,6 +11,37 @@ open class Fastfile: LaneFile {
     }
 }
 
+before_all do |lane, options|
+  # ...
+end
+
+before_each do |lane, options|
+  # ...
+end
+
+lane :deploy do |options|
+  # ...
+  if options[:submit]
+    # Only when submit is true
+  end
+  # ...
+  increment_build_number(build_number: options[:build_number])
+  # ...
+end
+
+after_all do |lane, options|
+  # ...
+end
+
+after_each do |lane, options|
+  # ...
+end
+
+error do |lane, exception, options|
+  if options[:debug]
+    puts "Hi :)"
+  end
+end
 // Please don't remove the lines below
 // They are used to detect outdated files
 // FastlaneRunnerAPIVersion [0.9.1]
