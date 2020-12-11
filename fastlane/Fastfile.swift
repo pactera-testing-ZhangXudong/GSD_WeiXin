@@ -3,14 +3,14 @@
 // Don't modify this file unless you are familiar with how fastlane's swift code generation works
 // *** This file will be overwritten or replaced during build time ***
 
-import_from_git(url: 'https://github.com/fastlane/fastlane')
-# or
-import_from_git(url: 'git@github.com:MyAwesomeRepo/MyAwesomeFastlaneStandardSetup.git',
-               path: 'fastlane/Fastfile')
+import Foundation
 
-lane :new_main_lane do
-  # ...
-end
+open class Fastfile: LaneFile {
+    override public init() {
+        super.init()
+    }
+}
+
 // Please don't remove the lines below
 // They are used to detect outdated files
 // FastlaneRunnerAPIVersion [0.9.1]
