@@ -14,7 +14,7 @@
 # update_fastlane
 
 # 定义fastlane版本号
-fastlane_version "2.63.0"
+fastlane_version "2.170.0"
 # 定义打包平台
 default_platform :ios
 
@@ -35,11 +35,6 @@ project_release_provisioningProfiles = "tyfocgApp_release_0516"
 ipa_exportMethod = "ad-hoc"
 # .ipa文件输出路径
 ipa_outputDirectory = "~/Desktop/fastlaneBuild"
-
-
-# 蒲公英api_key和user_key
-pgyer_apiKey  = "5b3a4b2fa....."
-pgyer_userkey = "8d7ad3c1...."
 
 
 # 计算buildNumber
