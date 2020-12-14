@@ -18,17 +18,6 @@ fastlane_version "2.170.0"
 # 定义打包平台
 default_platform :ios
 
-# 项目ID
-project_identifier = "com.tyfocg.app"
-# 项目的内测scheme名称
-project_ad_scheme = "tyfocg_dev"
-# 项目的发布scheme名称
-project_release_scheme = "tyfocg_release"
-# 项目的内测描述文件名称
-project_ad_provisioningProfiles = "tyfocgApp_ad_0516"
-# 项目的发布描述文件名称
-project_release_provisioningProfiles = "tyfocgApp_release_0516"
-
 
 # 默认内测打包方式，目前支持app-store, package, ad-hoc, enterprise, development
 # 注:由于如果使用手动配置证书，在export_options指定打包方式！
