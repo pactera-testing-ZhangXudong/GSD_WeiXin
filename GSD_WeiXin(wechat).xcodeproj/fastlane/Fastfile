@@ -14,11 +14,65 @@ opt_out_usage
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
-# 定义fastlane版本号
-fastlane_version "2.170.0"
-# 定义打包平台
-default_platform :ios
+APP_NAME = "GSD_WeiXin"
+WORKSPACE = "project.xcworkspace"
+SCHEME = "0710"
+IPA_TIME = Time.now.strftime("2020Y12m16d_10H44M")
+OUTPUT_DIRECTORY = "packages"
+APP_INFO_PLIST_PATH = './Others/Info.plist'
+ENV_PREFIX=""
+IPA_NAME = "weixin"
 
-lane :package
-    puts "这是一个lane"
-end
+platform :ios do
+  #
+  before_all do
+       xcode_select "/Applications/Xcode.app"
+       FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT = "40"
+  end
+
+  #debug包
+  lane :iosDebug do
+    ENV_PREFIX="debug_"
+    EXPORT_METHOD = "development"
+    package(configuration: "Debug")
+  end
+
+  #release包
+  lane :iosRelease do
+    ENV_PREFIX="adhoc_"
+    EXPORT_METHOD = "ad-hoc"
+    package(configuration: "Release")
+  end
+
+    #发布包
+  lane :iosAppStore do
+    ENV_PREFIX="appstore_"
+    EXPORT_METHOD = "app-store"
+    package(configuration: "Release")
+  end
+
+  #打包函数
+  lane :package do |option|
+      cocoapods
+      PLIST_INFO_VERSION = get_version_number(target: "#{SCHEME}")
+      PLIST_BUILD_VERSION = get_info_plist_value(path: "#{APP_INFO_PLIST_PATH}", key: 'CFBundleVersion')
+      IPA_NAME = "#{ENV_PREFIX}" + "#{APP_NAME}_"  +  "#{IPA_TIME}_" + "#{PLIST_INFO_VERSION}" +"_#{PLIST_BUILD_VERSION}"+ ".ipa"
+
+     #打包
+     gym(
+      scheme: "#{SCHEME}",
+      export_method: "#{EXPORT_METHOD}",
+      configuration: option[:configuration],
+      output_directory: "#{OUTPUT_DIRECTORY}",
+      include_symbols: true,
+      include_bitcode: false,
+      xcargs: 'DEBUG_INFORMATION_FORMAT="dwarf-with-dsym"',
+      output_name: "#{IPA_NAME}",
+      export_xcargs: "-allowProvisioningUpdates"
+      )
+      xcclean(
+       workspace: "#{WORKSPACE}",
+       scheme: "#{SCHEME}"
+      )
+
+  end
