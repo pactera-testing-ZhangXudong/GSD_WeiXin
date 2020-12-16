@@ -16,7 +16,7 @@
 
 APP_NAME = "GSD_WeiXin"
 WORKSPACE = "project.xcworkspace"
-SCHEME = "1.0"
+# SCHEME = "1.0"
 IPA_TIME = Time.now.strftime("2020Y12m16d_10H44M")
 OUTPUT_DIRECTORY = "packages"
 APP_INFO_PLIST_PATH = './Others/Info.plist'
@@ -53,13 +53,13 @@ platform :ios do
 
   #打包函数
   lane :package do |option|
-      PLIST_INFO_VERSION = get_version_number(target: "#{SCHEME}")
+      # PLIST_INFO_VERSION = get_version_number(target: "#{SCHEME}")
       PLIST_BUILD_VERSION = get_info_plist_value(path: "#{APP_INFO_PLIST_PATH}", key: 'CFBundleVersion')
-      IPA_NAME = "#{ENV_PREFIX}" + "#{APP_NAME}_"  +  "#{IPA_TIME}_" + "#{PLIST_INFO_VERSION}" +"_#{PLIST_BUILD_VERSION}"+ ".ipa"
+      IPA_NAME = "#{ENV_PREFIX}" + "#{APP_NAME}_"  +  "#{IPA_TIME}_" +"_#{PLIST_BUILD_VERSION}"+ ".ipa"
 
      #打包
      gym(
-      scheme: "#{SCHEME}",
+      # scheme: "#{SCHEME}",
       export_method: "#{EXPORT_METHOD}",
       configuration: option[:configuration],
       output_directory: "#{OUTPUT_DIRECTORY}",
