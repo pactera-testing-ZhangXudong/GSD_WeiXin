@@ -16,7 +16,7 @@
 
 APP_NAME = "GSD_WeiXin"
 WORKSPACE = "project.xcworkspace"
-SCHEME = "0710"
+SCHEME = "1.0"
 IPA_TIME = Time.now.strftime("2020Y12m16d_10H44M")
 OUTPUT_DIRECTORY = "packages"
 APP_INFO_PLIST_PATH = './Others/Info.plist'
