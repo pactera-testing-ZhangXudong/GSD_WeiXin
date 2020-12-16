@@ -14,64 +14,78 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
-APP_NAME = "GSD_WeiXin"
-WORKSPACE = "project.xcworkspace"
-# SCHEME = "1.0"
-IPA_TIME = Time.now.strftime("2020Y12m16d_10H44M")
-OUTPUT_DIRECTORY = "packages"
-APP_INFO_PLIST_PATH = './GSD_WeiXin(wechat)/Info.plist'
-ENV_PREFIX=""
-IPA_NAME = "weixin"
+# APP_NAME = "GSD_WeiXin"
+# WORKSPACE = "project.xcworkspace"
+# # SCHEME = "1.0"
+# IPA_TIME = Time.now.strftime("2020Y12m16d_10H44M")
+# OUTPUT_DIRECTORY = "packages"
+# APP_INFO_PLIST_PATH = './GSD_WeiXin(wechat)/Info.plist'
+# ENV_PREFIX=""
+# IPA_NAME = "weixin"
 
-platform :ios do
-  #
-  before_all do
-       xcode_select "/Applications/Xcode.app"
-       FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT = "40"
-  end
+# platform :ios do
+#   #
+#   before_all do
+#        xcode_select "/Applications/Xcode.app"
+#        FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT = "40"
+#   end
 
-  #debug包
-  lane :iosDebug do
-    ENV_PREFIX="debug_"
-    EXPORT_METHOD = "development"
-    package(configuration: "Debug")
-  end
+#   #debug包
+#   lane :iosDebug do
+#     ENV_PREFIX="debug_"
+#     EXPORT_METHOD = "development"
+#     package(configuration: "Debug")
+#   end
 
-  #release包
-  lane :iosRelease do
-    ENV_PREFIX="adhoc_"
-    EXPORT_METHOD = "ad-hoc"
-    package(configuration: "Release")
-  end
+#   #release包
+#   lane :iosRelease do
+#     ENV_PREFIX="adhoc_"
+#     EXPORT_METHOD = "ad-hoc"
+#     package(configuration: "Release")
+#   end
 
-    #发布包
-  lane :iosAppStore do
-    ENV_PREFIX="appstore_"
-    EXPORT_METHOD = "app-store"
-    package(configuration: "Release")
-  end
+#     #发布包
+#   lane :iosAppStore do
+#     ENV_PREFIX="appstore_"
+#     EXPORT_METHOD = "app-store"
+#     package(configuration: "Release")
+#   end
 
- #  #打包函数
- #  lane :package do |option|
- #      # PLIST_INFO_VERSION = get_version_number(target: "#{SCHEME}")
- #      PLIST_BUILD_VERSION = get_info_plist_value(path: "#{APP_INFO_PLIST_PATH}", key: 'CFBundleVersion')
- #      IPA_NAME = "#{ENV_PREFIX}" + "#{APP_NAME}_"  +  "#{IPA_TIME}_" +"_#{PLIST_BUILD_VERSION}"+ ".ipa"
+#  #  #打包函数
+#  #  lane :package do |option|
+#  #      # PLIST_INFO_VERSION = get_version_number(target: "#{SCHEME}")
+#  #      PLIST_BUILD_VERSION = get_info_plist_value(path: "#{APP_INFO_PLIST_PATH}", key: 'CFBundleVersion')
+#  #      IPA_NAME = "#{ENV_PREFIX}" + "#{APP_NAME}_"  +  "#{IPA_TIME}_" +"_#{PLIST_BUILD_VERSION}"+ ".ipa"
 
- #     #打包
- #     gym(
- #      # scheme: "#{SCHEME}",
- #      export_method: "#{EXPORT_METHOD}",
- #      configuration: option[:configuration],
- #      output_directory: "#{OUTPUT_DIRECTORY}",
- #      include_symbols: true,
- #      include_bitcode: false,
- #      xcargs: 'DEBUG_INFORMATION_FORMAT="dwarf-with-dsym"',
- #      output_name: "#{IPA_NAME}",
- #      export_xcargs: "-allowProvisioningUpdates"
- #      )
- #      xcclean(
- #       workspace: "#{WORKSPACE}",
- #       scheme: "#{SCHEME}"
- #      )
-	# end
+#  #     #打包
+#  #     gym(
+#  #      # scheme: "#{SCHEME}",
+#  #      export_method: "#{EXPORT_METHOD}",
+#  #      configuration: option[:configuration],
+#  #      output_directory: "#{OUTPUT_DIRECTORY}",
+#  #      include_symbols: true,
+#  #      include_bitcode: false,
+#  #      xcargs: 'DEBUG_INFORMATION_FORMAT="dwarf-with-dsym"',
+#  #      output_name: "#{IPA_NAME}",
+#  #      export_xcargs: "-allowProvisioningUpdates"
+#  #      )
+#  #      xcclean(
+#  #       workspace: "#{WORKSPACE}",
+#  #       scheme: "#{SCHEME}"
+#  #      )
+# 	# end
+#   end
+  desc "发布 测试版本 到 蒲公英"
+  lane :beta_pgy do    
+    gym(scheme: ENV['SCHEME_NAME'], 
+      export_method: "ad-hoc",
+      silent: true,  # 隐藏没有必要的信息
+      clean: true  # 在构建前先clean
+      )
+
+    pgyer(api_key: ENV['60ac5524edb0ba941568e53265661f2f'], 
+      user_key: ENV['7ab7fa6bb1e7d9e015f6994d84de01db'], 
+      update_description: ENV['test'], 
+      password: "！qazxsw@", 
+      install_type: "2")
   end
