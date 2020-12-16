@@ -74,5 +74,4 @@ platform :ios do
        workspace: "#{WORKSPACE}",
        scheme: "#{SCHEME}"
       )
-
   end
