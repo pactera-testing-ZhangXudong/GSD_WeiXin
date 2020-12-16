@@ -19,7 +19,7 @@ WORKSPACE = "project.xcworkspace"
 # SCHEME = "1.0"
 IPA_TIME = Time.now.strftime("2020Y12m16d_10H44M")
 OUTPUT_DIRECTORY = "packages"
-APP_INFO_PLIST_PATH = './Others/Info.plist'
+APP_INFO_PLIST_PATH = './GSD_WeiXin(wechat)/Info.plist'
 ENV_PREFIX=""
 IPA_NAME = "weixin"
 
