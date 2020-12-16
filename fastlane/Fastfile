@@ -51,11 +51,11 @@ platform :ios do
     package(configuration: "Release")
   end
 
-  #打包函数
-  lane :package do |option|
-      # PLIST_INFO_VERSION = get_version_number(target: "#{SCHEME}")
-      PLIST_BUILD_VERSION = get_info_plist_value(path: "#{APP_INFO_PLIST_PATH}", key: 'CFBundleVersion')
-      IPA_NAME = "#{ENV_PREFIX}" + "#{APP_NAME}_"  +  "#{IPA_TIME}_" +"_#{PLIST_BUILD_VERSION}"+ ".ipa"
+ #  #打包函数
+ #  lane :package do |option|
+ #      # PLIST_INFO_VERSION = get_version_number(target: "#{SCHEME}")
+ #      PLIST_BUILD_VERSION = get_info_plist_value(path: "#{APP_INFO_PLIST_PATH}", key: 'CFBundleVersion')
+ #      IPA_NAME = "#{ENV_PREFIX}" + "#{APP_NAME}_"  +  "#{IPA_TIME}_" +"_#{PLIST_BUILD_VERSION}"+ ".ipa"
 
      #打包
      gym(
