@@ -57,21 +57,21 @@ platform :ios do
  #      PLIST_BUILD_VERSION = get_info_plist_value(path: "#{APP_INFO_PLIST_PATH}", key: 'CFBundleVersion')
  #      IPA_NAME = "#{ENV_PREFIX}" + "#{APP_NAME}_"  +  "#{IPA_TIME}_" +"_#{PLIST_BUILD_VERSION}"+ ".ipa"
 
-     #打包
-     gym(
-      # scheme: "#{SCHEME}",
-      export_method: "#{EXPORT_METHOD}",
-      configuration: option[:configuration],
-      output_directory: "#{OUTPUT_DIRECTORY}",
-      include_symbols: true,
-      include_bitcode: false,
-      xcargs: 'DEBUG_INFORMATION_FORMAT="dwarf-with-dsym"',
-      output_name: "#{IPA_NAME}",
-      export_xcargs: "-allowProvisioningUpdates"
-      )
-      xcclean(
-       workspace: "#{WORKSPACE}",
-       scheme: "#{SCHEME}"
-      )
+ #     #打包
+ #     gym(
+ #      # scheme: "#{SCHEME}",
+ #      export_method: "#{EXPORT_METHOD}",
+ #      configuration: option[:configuration],
+ #      output_directory: "#{OUTPUT_DIRECTORY}",
+ #      include_symbols: true,
+ #      include_bitcode: false,
+ #      xcargs: 'DEBUG_INFORMATION_FORMAT="dwarf-with-dsym"',
+ #      output_name: "#{IPA_NAME}",
+ #      export_xcargs: "-allowProvisioningUpdates"
+ #      )
+ #      xcclean(
+ #       workspace: "#{WORKSPACE}",
+ #       scheme: "#{SCHEME}"
+ #      )
 	# end
   end
